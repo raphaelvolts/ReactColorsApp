@@ -1,10 +1,18 @@
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import "./ColorBox.css";
 
 export default function ColorBox({ background }) {
   return (
-    <div className="ColorBox" style={{ background: background.color }}>
-      <span>{background.name}</span>
-      <span>MORE</span>
-    </div>
+    <CopyToClipboard text={background.color}>
+      <div className="ColorBox" style={{ background: background.color }}>
+        <div className="copy-container">
+          <div className="box-container">
+            <span>{background.name}</span>
+          </div>
+          <button className="copy-button">Copy</button>
+        </div>
+        <span className="see-more">MORE</span>
+      </div>
+    </CopyToClipboard>
   );
 }
