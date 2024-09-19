@@ -9,15 +9,15 @@ export default function ColorBox({ background }) {
     setTimeout(() => setCopied(false), 1500);
   }
   return (
-    <CopyToClipboard text={background.color} onCopy={changeCopiedState}>
-      <div className="ColorBox" style={{ background: background.color }}>
+    <CopyToClipboard text={background.hex} onCopy={changeCopiedState}>
+      <div className="ColorBox" style={{ background: background.hex }}>
         <div
           className={`copy-overlay ${copied && "show"}`}
-          style={{ background: background.color }}
+          style={{ background: background.hex }}
         />
         <div className={`copy-msg ${copied && "show"}`}>
           <h1>Copied!</h1>
-          <p>{background.color}</p>
+          <p>{background.hex}</p>
         </div>
         <div className="copy-container">
           <div className="box-container">
