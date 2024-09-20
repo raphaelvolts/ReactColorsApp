@@ -1,7 +1,23 @@
 .Palette {
-  height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .Palette-colors {
   height: 90%;
+}
+
+.Palette-footer {
+  height: 5dvh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-weight: 500;
+}
+
+.Palette-footer-emoji {
+  font-family: "NOTO COLOR EMOJI";
+  font-size: 1.5rem;
+  margin: 0 1rem;
 }

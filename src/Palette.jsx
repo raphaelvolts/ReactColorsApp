@@ -32,6 +32,10 @@ export default function Palette({ palette }) {
         handleSnackbar={handleSnackbar}
       />
       <div className="Palette-colors">{colorBox}</div>
+      <footer className="Palette-footer">
+        {paletteName}
+        <span className="Palette-footer-emoji">{emoji}</span>
+      </footer>
     </div>
   );
 }

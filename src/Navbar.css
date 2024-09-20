@@ -1,6 +1,6 @@
 .Navbar {
   display: flex;
-  height: 6vh;
+  height: 6dvh;
   align-items: center;
   justify-content: flex-start;
 }
