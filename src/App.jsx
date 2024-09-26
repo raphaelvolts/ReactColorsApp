@@ -1,4 +1,5 @@
 import { Routes, Route, useParams } from "react-router-dom";
+import PaletteList from "./PaletteList";
 import Palette from "./Palette";
 import seedColors from "./seedColors";
 import generatePalette from "./chromaColorHelper";
@@ -9,14 +10,14 @@ function App() {
       return palette.id === id;
     });
   }
-  function DisplayPalette() {
+  function displayPalette() {
     let { id } = useParams();
     return <Palette palette={generatePalette(findPalette(id))} />;
   }
   return (
     <Routes>
-      <Route path="/" element={<h1>Palette List goes here</h1>} />
-      <Route path="/palette/:id" element={<DisplayPalette />} />
+      <Route path="/" element={<PaletteList palettes={seedColors} />} />
+      <Route path="/palette/:id" Component={displayPalette} />
     </Routes>
   );
 }

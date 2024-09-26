@@ -5,6 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { Link } from "react-router-dom";
 import "rc-slider/assets/index.css";
 import "./Navbar.css";
 
@@ -25,7 +26,7 @@ export default function Navbar({
   return (
     <nav className="Navbar">
       <div className="Navbar-logo">
-        <a href="#">reactcolorpalettes</a>
+        <Link to="/">reactcolorpalettes</Link>
       </div>
       <div className="Navbar-slider-container">
         <span>Level: {level}</span>
@@ -42,10 +43,16 @@ export default function Navbar({
       </div>
       <div className="Navbar-select-container">
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-          <Select value={format} onChange={handleChange}>
-            <MenuItem value="hex">HEX - #ffffff</MenuItem>
-            <MenuItem value="rgb">RGB - rgb(255, 255, 255)</MenuItem>
-            <MenuItem value="rgba">RGBA - RGBA(255, 255, 255, 1.0)</MenuItem>
+          <Select value={format} onChange={handleChange} name="format">
+            <MenuItem value="hex" name="hex">
+              HEX - #ffffff
+            </MenuItem>
+            <MenuItem value="rgb" name="rgb">
+              RGB - rgb(255, 255, 255)
+            </MenuItem>
+            <MenuItem value="rgba" name="rgba">
+              RGBA - RGBA(255, 255, 255, 1.0)
+            </MenuItem>
           </Select>
         </FormControl>
       </div>
