@@ -9,7 +9,14 @@ export default function Palette({ palette }) {
   const [snackbarStatus, setSnackbarStatus] = useState(false);
   const { colors, emoji, id, paletteName } = palette;
   const colorBox = colors[level].map((color, i) => {
-    return <ColorBox key={color.id} background={color} format={format} />;
+    return (
+      <ColorBox
+        key={color.id}
+        background={color}
+        format={format}
+        paletteId={id}
+      />
+    );
   });
   function handleLevel(newLevel) {
     setLevel(newLevel);
