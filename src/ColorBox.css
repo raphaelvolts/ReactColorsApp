@@ -65,6 +65,17 @@
   right: 1px;
   bottom: 1px;
 }
+.dark-background {
+  color: white;
+}
+
+.light-background {
+  color: black;
+}
+.see-more.light-background,
+.button.light-background {
+  background: rgba(0, 0, 0, 0.1);
+}
 
 .copy-overlay {
   opacity: 0;
@@ -110,7 +121,7 @@
   font-weight: 400;
   text-shadow: 1px 2px black;
   text-align: center;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
   width: 100%;
   margin-bottom: 0;
   padding: 1rem;
@@ -120,4 +131,13 @@
 .copy-msg p {
   font-size: 2rem;
   font-weight: 100;
+}
+
+.light-background h1 {
+  /* color: white; */
+  background: rgba(0, 0, 0, 0.1);
+}
+.light-background p {
+  color: black;
+  background: none;
 }

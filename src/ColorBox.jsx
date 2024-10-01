@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Link, useLocation } from "react-router-dom";
+import chroma from "chroma-js";
 import "./ColorBox.css";
 
 export default function ColorBox({ background, format, showLink }) {
@@ -12,6 +13,8 @@ export default function ColorBox({ background, format, showLink }) {
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   }
+  const isDarkColor = chroma(background.hex).luminance() <= 0.08;
+  const isLightColor = chroma(background.hex).luminance() >= 0.8;
 
   return (
     <CopyToClipboard text={background[format]} onCopy={changeCopiedState}>
@@ -20,15 +23,25 @@ export default function ColorBox({ background, format, showLink }) {
           className={`copy-overlay ${copied && "show"}`}
           style={{ background: background[format] }}
         />
-        <div className={`copy-msg ${copied && "show"}`}>
+        <div
+          className={`copy-msg ${copied && "show"} ${
+            isLightColor && "light-background"
+          }`}
+        >
           <h1>Copied!</h1>
-          <p>{background[format]}</p>
+          <p className={isLightColor && "light-background"}>
+            {background[format]}
+          </p>
         </div>
         <div className="copy-container">
           <div className="box-container">
-            <span>{background.name}</span>
+            <span className={isDarkColor && "dark-background"}>
+              {background.name}
+            </span>
           </div>
-          <button className="button">Copy</button>
+          <button className={`button ${isLightColor && "light-background"}`}>
+            Copy
+          </button>
         </div>
         {showLink && (
           <Link
@@ -37,7 +50,9 @@ export default function ColorBox({ background, format, showLink }) {
             }
             onClick={(e) => e.stopPropagation()}
           >
-            <span className="see-more">MORE</span>
+            <span className={`see-more ${isLightColor && "light-background"}`}>
+              MORE
+            </span>
           </Link>
         )}
       </div>
