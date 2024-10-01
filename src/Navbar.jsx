@@ -28,19 +28,21 @@ export default function Navbar({
       <div className="Navbar-logo">
         <Link to="/">reactcolorpalettes</Link>
       </div>
-      <div className="Navbar-slider-container">
-        <span>Level: {level}</span>
-        <div className="Navbar-slider">
-          <Slider
-            defaultValue={level}
-            value={level}
-            min={100}
-            max={900}
-            step={100}
-            onChange={handleLevel}
-          />
+      {level && (
+        <div className="Navbar-slider-container">
+          <span>Level: {level}</span>
+          <div className="Navbar-slider">
+            <Slider
+              defaultValue={level}
+              value={level}
+              min={100}
+              max={900}
+              step={100}
+              onChange={handleLevel}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="Navbar-select-container">
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
           <Select value={format} onChange={handleChange} name="format">
