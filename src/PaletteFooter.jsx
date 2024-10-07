@@ -1,8 +1,14 @@
+import { createUseStyles } from "react-jss";
+import styles from "./styles/PaletteStyle";
+
+const footerStyles = createUseStyles(styles);
+
 export default function PaletteFooter({ paletteName, emoji }) {
+  const classes = footerStyles();
   return (
-    <footer className="Palette-footer">
+    <footer className={classes.PaletteFooter}>
       {paletteName}
-      <span className="Palette-footer-emoji">{emoji}</span>
+      <span className={classes.footerEmoji}>{emoji}</span>
     </footer>
   );
 }

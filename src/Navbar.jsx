@@ -6,8 +6,11 @@ import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
+import { createUseStyles } from "react-jss";
 import "rc-slider/assets/index.css";
-import "./Navbar.css";
+import styles from "./styles/NavbarStyles";
+
+const navbarStyles = createUseStyles(styles);
 
 export default function Navbar({
   level,
@@ -20,18 +23,19 @@ export default function Navbar({
   function handleChange(e) {
     handleFormat(e.target.value);
   }
+  const classes = navbarStyles();
   /* const handleClose = () => {
     handleSnackbar();
   }; */
   return (
-    <nav className="Navbar">
-      <div className="Navbar-logo">
+    <nav className={classes.Navbar}>
+      <div className={classes.logo}>
         <Link to="/">reactcolorpalettes</Link>
       </div>
       {level && (
-        <div className="Navbar-slider-container">
+        <div>
           <span>Level: {level}</span>
-          <div className="Navbar-slider">
+          <div className={classes.slider}>
             <Slider
               defaultValue={level}
               value={level}
@@ -43,7 +47,7 @@ export default function Navbar({
           </div>
         </div>
       )}
-      <div className="Navbar-select-container">
+      <div className={classes.selectContainer}>
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
           <Select value={format} onChange={handleChange} name="format">
             <MenuItem value="hex" name="hex">

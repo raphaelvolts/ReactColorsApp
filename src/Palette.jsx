@@ -2,8 +2,10 @@ import { useState } from "react";
 import ColorBox from "./ColorBox";
 import Navbar from "./Navbar";
 import PaletteFooter from "./PaletteFooter";
-import "./Palette.css";
+import { createUseStyles } from "react-jss";
+import styles from "./styles/PaletteStyle";
 
+const paletteStyles = createUseStyles(styles);
 export default function Palette({
   palette,
   format,
@@ -12,7 +14,7 @@ export default function Palette({
   handleSnackbar
 }) {
   const [level, setLevel] = useState(500);
-
+  const classes = paletteStyles();
   const { colors, emoji, id, paletteName } = palette;
   const colorBox = colors[level].map((color, i) => {
     return (
@@ -30,7 +32,7 @@ export default function Palette({
   }
 
   return (
-    <div className="Palette">
+    <div className={classes.palette}>
       <Navbar
         level={level}
         handleLevel={handleLevel}
@@ -39,7 +41,7 @@ export default function Palette({
         snackbarStatus={snackbarStatus}
         handleSnackbar={handleSnackbar}
       />
-      <div className="Palette-colors">{colorBox}</div>
+      <div className={classes.colors}>{colorBox}</div>
       <PaletteFooter paletteName={paletteName} emoji={emoji} />
     </div>
   );

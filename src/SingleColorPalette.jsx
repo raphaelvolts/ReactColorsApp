@@ -2,7 +2,10 @@ import ColorBox from "./ColorBox";
 import Navbar from "./Navbar";
 import PaletteFooter from "./PaletteFooter";
 import { useNavigate } from "react-router-dom";
-import "./SingleColorPalette.css";
+import { createUseStyles } from "react-jss";
+import styles from "./styles/PaletteStyle";
+
+const singleColorPaletteStyles = createUseStyles(styles);
 
 function getAllShades(allColors, displayColor) {
   let shades = [];
@@ -27,13 +30,14 @@ export default function SingleColorPalette({
     navigate("..", { relative: "path" });
   }
   const { colors, paletteName, emoji } = palette;
+  const classes = singleColorPaletteStyles();
   const shades = getAllShades(colors, colorId);
   const shadeBoxes = shades.map((shade, i) => (
     <ColorBox key={`${colorId} - ${i}`} background={shade} format={format} />
   ));
 
   return (
-    <div className="Palette">
+    <div className={classes.palette}>
       <Navbar
         level={false}
         format={format}
@@ -42,10 +46,10 @@ export default function SingleColorPalette({
         handleSnackbar={handleSnackbar}
         showLink={false}
       />
-      <div className="Palette-colors">
+      <div className={classes.colors}>
         {shadeBoxes}
-        <div className="button-container" onClick={navigateBack}>
-          <button className="button-container button">Back</button>
+        <div className={classes.buttonContainer} onClick={navigateBack}>
+          <button className={classes.button}>Back</button>
         </div>
       </div>
       <PaletteFooter paletteName={paletteName} emoji={emoji} />
