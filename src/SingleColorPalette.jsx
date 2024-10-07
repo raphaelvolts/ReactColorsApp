@@ -29,12 +29,7 @@ export default function SingleColorPalette({
   const { colors, paletteName, emoji } = palette;
   const shades = getAllShades(colors, colorId);
   const shadeBoxes = shades.map((shade, i) => (
-    <ColorBox
-      key={`${colorId} - ${i}`}
-      background={shade}
-      format={format}
-      showLink={false}
-    />
+    <ColorBox key={`${colorId} - ${i}`} background={shade} format={format} />
   ));
 
   return (
@@ -45,11 +40,12 @@ export default function SingleColorPalette({
         handleFormat={handleFormat}
         snackbarStatus={snackbarStatus}
         handleSnackbar={handleSnackbar}
+        showLink={false}
       />
-      <div className="SingleColorPalette Palette-colors">
+      <div className="Palette-colors">
         {shadeBoxes}
-        <div className="ColorBox button-container" onClick={navigateBack}>
-          <button className="button">Back</button>
+        <div className="button-container" onClick={navigateBack}>
+          <button className="button-container button">Back</button>
         </div>
       </div>
       <PaletteFooter paletteName={paletteName} emoji={emoji} />

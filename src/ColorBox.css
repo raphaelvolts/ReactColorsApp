@@ -1,4 +1,4 @@
-.ColorBox {
+/* .ColorBox {
   width: 20%;
   height: 25%;
   margin: 0 auto;
@@ -6,12 +6,12 @@
   position: relative;
   cursor: pointer;
   margin-bottom: -6px;
-}
-.SingleColorPalette .ColorBox {
+} */
+/* .SingleColorPalette .ColorBox {
   height: 50%;
-}
+} */
 
-.button {
+/* .button {
   width: 100px;
   height: 30px;
   font-size: 1rem;
@@ -30,18 +30,18 @@
   background-color: rgba(255, 255, 255, 0.3);
   cursor: pointer;
   opacity: 0;
-}
+} */
 
-.button-container .button {
+/* .button-container .button {
   opacity: 1;
 }
 
 .ColorBox:hover .button {
   opacity: 1;
   transition: 0.5s;
-}
+} */
 
-.box-container {
+/* .box-container {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -51,9 +51,9 @@
   width: 100%;
   left: 0;
   bottom: 0;
-}
+} */
 
-.see-more {
+/* .see-more {
   background: rgba(255, 255, 255, 0.3);
   color: white;
   text-align: center;
@@ -75,25 +75,25 @@
 .see-more.light-background,
 .button.light-background {
   background: rgba(0, 0, 0, 0.1);
-}
+} */
 
-.copy-overlay {
+/* .copy-overlay {
   opacity: 0;
   z-index: 0;
   width: 100%;
   height: 100%;
   transition: transform 0.6s ease-in-out;
   transform: scale(0.1);
-}
+} */
 
-.copy-overlay.show {
+/* .copy-overlay.show {
   opacity: 1;
   z-index: 10;
   position: absolute;
   transform: scale(50);
-}
+} */
 
-.copy-msg {
+/* .copy-msg {
   position: fixed;
   left: 0;
   right: 0;
@@ -107,17 +107,17 @@
   color: white;
   transform: scale(0.1);
   opacity: 0;
-}
+} */
 
-.copy-msg.show {
+/* .copy-msg.show {
   opacity: 1;
   z-index: 20;
   transform: scale(1);
   transition: all 0.4s ease-in-out;
   transition-delay: 0.3s;
-}
+} */
 
-.copy-msg h1 {
+/* .copy-msg h1 {
   font-weight: 400;
   text-shadow: 1px 2px black;
   text-align: center;
@@ -126,18 +126,18 @@
   margin-bottom: 0;
   padding: 1rem;
   text-transform: uppercase;
-}
+} */
 
-.copy-msg p {
+/* .copy-msg p {
   font-size: 2rem;
   font-weight: 100;
-}
+} */
 
-.light-background h1 {
-  /* color: white; */
+/* .light-background h1 {
+  color: white;
   background: rgba(0, 0, 0, 0.1);
 }
 .light-background p {
   color: black;
   background: none;
-}
+} */
