@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MiniPalette from "./MiniPalette";
 import { createUseStyles } from "react-jss";
 import styles from "./styles/PaletteListStyles";
@@ -26,6 +26,7 @@ export default function PaletteList({ palettes }) {
       <div className={classes.container}>
         <nav className={classes.nav}>
           <h1>React Color Palettes</h1>
+          <Link to="/palette/new">Create Palette</Link>
         </nav>
         <div className={classes.palettes}>{links}</div>
       </div>
