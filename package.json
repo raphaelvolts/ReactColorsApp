@@ -14,6 +14,7 @@
     "@mui/material": "^6.1.1",
     "@uiw/color-convert": "^2.3.2",
     "@uiw/react-color": "^2.3.2",
+    "@uiw/react-color-chrome": "^2.3.2",
     "chroma-js": "^3.1.1",
     "jss": "^10.10.0",
     "jss-preset-default": "^10.10.0",

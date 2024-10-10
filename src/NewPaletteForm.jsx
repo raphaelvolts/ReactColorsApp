@@ -12,7 +12,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Button from "@mui/material/Button";
 import { Chrome } from "@uiw/react-color";
-import { GithubPlacement } from "@uiw/react-color-github";
+import chroma from "chroma-js";
+import { hexToHsva, hsvaToHex, hsvaToHexa } from "@uiw/color-convert";
 
 const drawerWidth = 400;
 
@@ -73,9 +74,11 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function NewPaletteForm() {
   /* const theme = useTheme(); */
-  const [open, setOpen] = useState(false);
-  const [colorPicker, setColorPicker] = useState("#123488");
-  /* const [color, setColor] = useColor("purple"); */
+  const [open, setOpen] = useState(true);
+  const [chromeColor, setChromeColor] = useState({
+    currentColor: "#123488",
+    colors: []
+  });
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -84,6 +87,17 @@ export default function NewPaletteForm() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  function handleColor(newColor) {
+    setChromeColor((cc) => ({ ...cc, currentColor: newColor.hsva }));
+  }
+  function addNewColor() {
+    setChromeColor((oc) => ({ ...oc, colors: [...oc.colors, pickedColor] }));
+  }
+  const pickedColor =
+    typeof chromeColor.currentColor !== "object"
+      ? chromeColor.currentColor
+      : hsvaToHex(chromeColor.currentColor);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -130,7 +144,7 @@ export default function NewPaletteForm() {
         <Divider />
         <Typography variant="h4">Create Your Palette</Typography>
         <div>
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="error">
             Clear Palette
           </Button>
           <Button variant="contained" color="primary">
@@ -138,23 +152,26 @@ export default function NewPaletteForm() {
           </Button>
         </div>
         <Chrome
-          color={colorPicker}
+          color={chromeColor.currentColor}
           style={{
-            float: "left",
-            margin: "5px",
-            marginRight: "auto",
-            marginLeft: "auto",
-            height: "250px",
-            width: "300px"
+            float: "left"
           }}
           inputType="hexa"
           placement={false}
-          onChange={(color) => {
-            console.log(color);
-            setColorPicker(color.hex);
-          }}
+          onChange={handleColor}
         />
-        <Button variant="contained" color="primary">
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{
+            backgroundColor: pickedColor,
+            color:
+              chroma(pickedColor).luminance() >= 0.8
+                ? "rgba(0,0,0,0.6)"
+                : "#fff"
+          }}
+          onClick={addNewColor}
+        >
           Add Color
         </Button>
       </Drawer>
