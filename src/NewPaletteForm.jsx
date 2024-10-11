@@ -14,12 +14,14 @@ import Button from "@mui/material/Button";
 import { Chrome } from "@uiw/react-color";
 import chroma from "chroma-js";
 import { hexToHsva, hsvaToHex, hsvaToHexa } from "@uiw/color-convert";
+import DraggableColorBox from "./DraggableColorBox";
 
 const drawerWidth = 400;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme }) => ({
     flexGrow: 1,
+    height: "calc(100vh - 64px)",
     padding: theme.spacing(3),
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
@@ -177,6 +179,9 @@ export default function NewPaletteForm() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
+        {chromeColor.colors.map((color, i) => (
+          <DraggableColorBox key={`${color}-i`} color={color} />
+        ))}
       </Main>
     </Box>
   );
