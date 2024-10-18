@@ -5,6 +5,11 @@ export default {
     padding: "0.5rem",
     position: "relative",
     overflow: "hidden",
+    boxSizing: "border-box",
+    height: "200px",
+    /* display: "flex",
+    flexDirection: "column",
+    flex: "auto", */
     "&:hover": {
       cursor: "pointer"
     }
@@ -18,6 +23,7 @@ export default {
   },
   title: {
     display: "flex",
+    flex: "auto",
     justifyContent: "space-between",
     alignItems: "center",
     margin: "0",

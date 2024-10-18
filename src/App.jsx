@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route, useParams, useNavigate } from "react-router-dom";
 import PaletteList from "./PaletteList";
 import Palette from "./Palette";
 import SingleColorPalette from "./SingleColorPalette";
@@ -8,7 +8,9 @@ import seedColors from "./seedColors";
 import generatePalette from "./chromaColorHelper";
 
 function App() {
+  const navigate = useNavigate();
   const [format, setFormat] = useState("hex");
+  const [palettes, setPalettes] = useState(seedColors);
   const [snackbarStatus, setSnackbarStatus] = useState(false);
   function handleSnackbar() {
     setSnackbarStatus(false);
@@ -18,7 +20,7 @@ function App() {
     setSnackbarStatus(true);
   }
   function findPalette(id) {
-    return seedColors.find((palette) => {
+    return palettes.find((palette) => {
       return palette.id === id;
     });
   }
@@ -49,10 +51,17 @@ function App() {
       );
     }
   }
+  function addPalette(newPalette) {
+    setPalettes((op) => [...op, newPalette]);
+    navigate("/");
+  }
   return (
     <Routes>
-      <Route path="/" element={<PaletteList palettes={seedColors} />} />
-      <Route path="/palette/new" element={<NewPaletteForm />} />
+      <Route path="/" element={<PaletteList palettes={palettes} />} />
+      <Route
+        path="/palette/new"
+        element={<NewPaletteForm addPalette={addPalette} palettes={palettes} />}
+      />
       <Route path="/palette/:id" Component={displayPalette} />
       <Route path="/palette/:paletteId/:colorId" Component={displayPalette} />
     </Routes>

@@ -2,20 +2,28 @@ export default {
   root: {
     backgroundColor: "navy",
     display: "flex",
-    height: "100%",
+    minHeight: "100%",
+    height: "inherit",
+    flex: "auto",
+    flexWrap: "wrap",
     alignItems: "flex-start",
-    justifyContent: "center"
+    justifyContent: "center",
+    boxSizing: "border-box"
   },
   container: {
     display: "flex",
     width: "50%",
+    height: "fit-content",
     alignItems: "flex-start",
+    /* justifyContent: "space-evenly", */
     flexDirection: "column",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    overflow: ""
   },
   nav: {
     display: "flex",
     width: "100%",
+    height: "20px",
     justifyContent: "space-between",
     alignItems: "baseline",
     color: "white",
@@ -24,8 +32,8 @@ export default {
     }
   },
   palettes: {
-    width: "100%",
     boxSizing: "border-box",
+    width: "100%",
     display: "grid",
     gridTemplateColumns: "repeat(3, 30%)",
     gap: "5%",

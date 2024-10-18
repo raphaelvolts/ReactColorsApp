@@ -1,86 +1,41 @@
 import { useState } from "react";
-import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
-import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Button from "@mui/material/Button";
+import { Main, DrawerHeader } from "./NewPaletteFormMainNDrawer";
+import { TextField } from "@mui/material";
 import { Chrome } from "@uiw/react-color";
 import chroma from "chroma-js";
 import { hexToHsva, hsvaToHex, hsvaToHexa } from "@uiw/color-convert";
-import DraggableColorBox from "./DraggableColorBox";
+import DraggableColorList from "./DraggableColorList";
+import NewPaletteFormNav from "./NewPaletteFormNav";
 
 const drawerWidth = 400;
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme }) => ({
-    flexGrow: 1,
-    height: "calc(100vh - 64px)",
-    padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    variants: [
-      {
-        props: ({ open }) => open,
-        style: {
-          transition: theme.transitions.create("margin", {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen
-          }),
-          marginLeft: 0
-        }
-      }
-    ]
-  })
-);
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open"
-})(({ theme }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen
-  }),
-  variants: [
-    {
-      props: ({ open }) => open,
-      style: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: `${drawerWidth}px`,
-        transition: theme.transitions.create(["margin", "width"], {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen
-        })
-      }
-    }
-  ]
-}));
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end"
-}));
-
-export default function NewPaletteForm() {
+export default function NewPaletteForm({ addPalette, palettes }) {
   /* const theme = useTheme(); */
   const [open, setOpen] = useState(true);
   const [chromeColor, setChromeColor] = useState({
     currentColor: "#123488",
-    colors: []
+    colorName: "",
+    isError: false,
+    error: {
+      isEmpty: false,
+      notUniqueColorName: false,
+      notUniqueColor: false
+    },
+    colors: palettes[0].colors
   });
+
+  const errorMsgs = {
+    isEmpty: "Name is required",
+    notUniqueColorName: "Color Name needs to be unique",
+    notUniqueColor: "Color needs to be unique"
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -93,38 +48,133 @@ export default function NewPaletteForm() {
   function handleColor(newColor) {
     setChromeColor((cc) => ({ ...cc, currentColor: newColor.hsva }));
   }
-  function addNewColor() {
-    setChromeColor((oc) => ({ ...oc, colors: [...oc.colors, pickedColor] }));
+
+  function checkUnique(value) {
+    return chromeColor.colors.every(
+      ({ name }) => name.toLowerCase() !== value.toLowerCase()
+    );
   }
+
+  function handleNoName() {
+    setChromeColor((oc) => ({
+      ...oc,
+      isError: true,
+      error: { ...oc.error, isEmpty: true }
+    }));
+  }
+
+  function handleNotUniqueName() {
+    setChromeColor((oc) => ({
+      ...oc,
+      isError: true,
+      error: { ...oc.error, notUniqueColorName: true }
+    }));
+  }
+
+  function handleNotUniqueColor() {
+    setChromeColor((oc) => ({
+      ...oc,
+      isError: true,
+      error: { ...oc.error, notUniqueColor: true }
+    }));
+  }
+
+  function handleForm(e) {
+    setChromeColor((oc) => ({ ...oc, colorName: e.target.value }));
+    if (e.target.validity.valid) {
+      if (!checkUnique(e.target.value, e.target.name)) {
+        handleNotUniqueName();
+      } else {
+        setChromeColor((oc) => ({
+          ...oc,
+          isError: false,
+          error: { ...oc.error, notUniqueColorName: false }
+        }));
+      }
+    } else handleNoName();
+  }
+
+  function addNewColor(e) {
+    e.preventDefault();
+    if (chromeColor.colorName !== "") {
+      if (checkUnique(chromeColor.colorName)) {
+        const checkUniqueColor = chromeColor.colors.every(
+          ({ color }) => color !== pickedColor
+        );
+        if (checkUniqueColor) {
+          const color = {
+            name: chromeColor.colorName,
+            color: pickedColor
+          };
+          setChromeColor((oc) => ({
+            ...oc,
+            colorName: "",
+            colors: [...oc.colors, color],
+            isError: false
+          }));
+        } else handleNotUniqueColor();
+      } else handleNotUniqueName();
+    } else handleNoName();
+  }
+
+  function handlePalette(paletteName) {
+    if (paletteName !== "") {
+      const palette = {
+        paletteName: paletteName,
+        id: paletteName.toLowerCase().replace(/ /g, "-"),
+        colors: chromeColor.colors
+      };
+      addPalette(palette);
+    }
+  }
+
+  function removeColor(colorName) {
+    setChromeColor((occ) => ({
+      ...occ,
+      colors: occ.colors.filter((color) => color.name !== colorName)
+    }));
+  }
+
+  function handleSort(colors) {
+    setChromeColor((occ) => ({ ...occ, colors: [...colors] }));
+  }
+
+  function clearPalette() {
+    setChromeColor((occ) => ({ ...occ, colors: [] }));
+  }
+
+  function addRandomColor() {
+    const allColors = palettes.map((palette) => palette.colors).flat();
+    let rand = Math.floor(Math.random() * allColors.length);
+    let randomColor = allColors[rand];
+    setChromeColor((occ) => ({ ...occ, colors: [...occ.colors, randomColor] }));
+  }
+
+  let helperText = "";
+
   const pickedColor =
     typeof chromeColor.currentColor !== "object"
       ? chromeColor.currentColor
       : hsvaToHex(chromeColor.currentColor);
+  if (chromeColor.isError) {
+    for (let key in chromeColor.error) {
+      if (chromeColor.error[key]) {
+        helperText = errorMsgs[key];
+      }
+    }
+  }
+
+  let isPaletteFull = chromeColor.colors.length >= 20;
 
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={[
-              {
-                mr: 2
-              },
-              open && { display: "none" }
-            ]}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Persistent drawer
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <NewPaletteFormNav
+        open={open}
+        handleDrawerOpen={handleDrawerOpen}
+        handlePalette={handlePalette}
+        palettes={palettes}
+        drawerWidth={drawerWidth}
+      />
       <Drawer
         sx={{
           width: drawerWidth,
@@ -146,10 +196,15 @@ export default function NewPaletteForm() {
         <Divider />
         <Typography variant="h4">Create Your Palette</Typography>
         <div>
-          <Button variant="contained" color="error">
+          <Button variant="contained" color="error" onClick={clearPalette}>
             Clear Palette
           </Button>
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={addRandomColor}
+            disabled={isPaletteFull}
+          >
             Random Color
           </Button>
         </div>
@@ -162,26 +217,40 @@ export default function NewPaletteForm() {
           placement={false}
           onChange={handleColor}
         />
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{
-            backgroundColor: pickedColor,
-            color:
-              chroma(pickedColor).luminance() >= 0.8
+        <Box component="form" onSubmit={addNewColor} noValidate>
+          <TextField
+            value={chromeColor.colorName}
+            onChange={handleForm}
+            name="colorName"
+            required
+            error={chromeColor.isError}
+            helperText={helperText}
+          />
+          <Button
+            variant="contained"
+            type="submit"
+            color="primary"
+            disabled={isPaletteFull}
+            sx={{
+              backgroundColor: isPaletteFull ? "grey" : pickedColor,
+              color: isPaletteFull
+                ? "rgba(0,0,0,0.6)"
+                : chroma(pickedColor).luminance() >= 0.8
                 ? "rgba(0,0,0,0.6)"
                 : "#fff"
-          }}
-          onClick={addNewColor}
-        >
-          Add Color
-        </Button>
+            }}
+          >
+            {isPaletteFull ? "Palette Full" : "Add Color"}
+          </Button>
+        </Box>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        {chromeColor.colors.map((color, i) => (
-          <DraggableColorBox key={`${color}-i`} color={color} />
-        ))}
+        <DraggableColorList
+          colors={chromeColor.colors}
+          removeColor={removeColor}
+          handleSort={handleSort}
+        />
       </Main>
     </Box>
   );

@@ -2,6 +2,7 @@ export default {
   palette: {
     height: "100%",
     display: "flex",
+    flex: "auto",
     flexDirection: "column"
   },
   colors: {

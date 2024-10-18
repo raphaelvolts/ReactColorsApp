@@ -1,21 +1,43 @@
-import { createUseStyles } from "react-jss";
+import { useSortable, defaultAnimateLayoutChanges } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { DraggableItem } from "./DraggableItem";
 
-const style = createUseStyles({
-  root: {
-    width: "20%",
-    height: "25%",
-    margin: "0 auto",
-    display: "inline-block",
-    position: "relative",
-    cursor: "pointer"
+export default function DraggableColorBox({ color, name, removeColor, id }) {
+  function animateLayoutChanges(args) {
+    const { isSorting, wasSorting } = args;
+
+    if (isSorting || wasSorting) {
+      return defaultAnimateLayoutChanges(args);
+    }
+
+    return true;
   }
-});
+  const {
+    isDragging,
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition
+  } = useSortable({ animateLayoutChanges, id: id });
+  const sortableStyle = {
+    transform: CSS.Transform.toString(transform),
+    transition: transition
+  };
 
-export default function DraggableColorBox({ color }) {
-  const classes = style();
+  function handleDelete(e) {
+    removeColor(name);
+  }
   return (
-    <div className={classes.root} style={{ backgroundColor: color }}>
-      {color}
-    </div>
+    <DraggableItem
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={sortableStyle}
+      color={color}
+      name={name}
+      withOpacity={isDragging}
+      handleDelete={handleDelete}
+    />
   );
 }

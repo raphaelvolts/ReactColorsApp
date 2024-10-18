@@ -12,10 +12,14 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
+
 #root {
+  display: flex;
   height: 100vh;
-  contain: strict;
+  max-height: max-content;
+  width: 100dw;
 }
 /* 
 a {
