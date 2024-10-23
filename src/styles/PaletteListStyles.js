@@ -38,6 +38,7 @@ export default {
     display: "grid",
     gridTemplateColumns: "repeat(3, 30%)",
     gap: "2.5rem",
-    marginTop: "30px"
+    marginTop: "30px",
+    marginBottom: "30px"
   }
 };

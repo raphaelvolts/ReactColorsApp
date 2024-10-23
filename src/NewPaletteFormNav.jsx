@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import Button from "@mui/material/Button";
-import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { AppBar } from "./AppBar";
 import PaletteMetaForm from "./PaletteMetaForm";

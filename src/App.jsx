@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route, useParams, useNavigate } from "react-router-dom";
 import PaletteList from "./PaletteList";
 import Palette from "./Palette";
@@ -10,8 +10,14 @@ import generatePalette from "./chromaColorHelper";
 function App() {
   const navigate = useNavigate();
   const [format, setFormat] = useState("hex");
-  const [palettes, setPalettes] = useState(seedColors);
+  const savedPalettes = JSON.parse(localStorage.getItem("palettes"));
+  const [palettes, setPalettes] = useState(savedPalettes || seedColors);
   const [snackbarStatus, setSnackbarStatus] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("palettes", JSON.stringify(palettes));
+  }, [palettes]);
+
   function handleSnackbar() {
     setSnackbarStatus(false);
   }
