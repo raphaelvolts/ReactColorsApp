@@ -8,17 +8,18 @@ export default {
     flexWrap: "wrap",
     alignItems: "flex-start",
     justifyContent: "center",
-    boxSizing: "border-box"
+    boxSizing: "border-box",
+    overflow: "scroll"
   },
   container: {
     display: "flex",
     width: "50%",
-    height: "fit-content",
+    /* height: "fit-content", */
     alignItems: "flex-start",
-    /* justifyContent: "space-evenly", */
+    justifyContent: "space-evenly",
+    justifyItems: "stretch",
     flexDirection: "column",
-    flexWrap: "wrap",
-    overflow: ""
+    flexWrap: "wrap"
   },
   nav: {
     display: "flex",
@@ -36,7 +37,7 @@ export default {
     width: "100%",
     display: "grid",
     gridTemplateColumns: "repeat(3, 30%)",
-    gap: "5%",
+    gap: "2.5rem",
     marginTop: "30px"
   }
 };

@@ -1,4 +1,5 @@
-import { styled, useTheme } from "@mui/material/styles";
+/* import { styled, useTheme } from "@mui/material/styles"; */
+import styled from "styled-jss";
 import MuiAppBar from "@mui/material/AppBar";
 import { DRAWER_WIDTH } from "./constants";
 

@@ -74,7 +74,6 @@ export default function DraggableColorList({
         handleSort(newColors);
       }, 250);
       /* handleSort(newColors); */
-      console.log(over.id);
     }
   };
 
@@ -83,8 +82,9 @@ export default function DraggableColorList({
   };
 
   const handleRemoveColor = (name) => {
-    setActiveId(null);
+    /* e.stopPropagation(); */
     removeColor(name);
+    setActiveId(null);
   };
   /* function handleDragStart(event) {
     const { active } = event;
@@ -119,14 +119,14 @@ export default function DraggableColorList({
               id={color.name}
               color={color.color}
               name={color.name}
-              removeColor={handleRemoveColor}
+              handleRemoveColor={handleRemoveColor}
             />
           ))}
         </div>
       </SortableContext>
       <DragOverlay
         adjustScale
-        style={{ transformOrigin: "0 0", height: "103%", width: "63%" }}
+        style={{ transformOrigin: "0 0", height: "20%", width: "15%" }}
         dropAnimation={{
           duration: 500,
           easing: "cubic-bezier(0.18, 0.67, 0.6, 1.22)"
@@ -137,7 +137,7 @@ export default function DraggableColorList({
             id={activeId}
             color={items.find((item) => item.name === activeId).color}
             name={items.find((item) => item.name === activeId).name}
-            style={{ height: "20%", width: "25%", visibility: "visible" }}
+            /* style={{ height: "20%", width: "25%", visibility: "visible" }} */
             isDragging
           />
         ) : null}

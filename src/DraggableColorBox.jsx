@@ -2,7 +2,12 @@ import { useSortable, defaultAnimateLayoutChanges } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { DraggableItem } from "./DraggableItem";
 
-export default function DraggableColorBox({ color, name, removeColor, id }) {
+export default function DraggableColorBox({
+  color,
+  name,
+  handleRemoveColor,
+  id
+}) {
   function animateLayoutChanges(args) {
     const { isSorting, wasSorting } = args;
 
@@ -25,8 +30,9 @@ export default function DraggableColorBox({ color, name, removeColor, id }) {
     transition: transition
   };
 
-  function handleDelete(e) {
-    removeColor(name);
+  function handleDelete() {
+    console.log(name);
+    handleRemoveColor(name);
   }
   return (
     <DraggableItem
