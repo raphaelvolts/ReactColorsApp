@@ -61,9 +61,17 @@ function App() {
     setPalettes((op) => [...op, newPalette]);
     navigate("/");
   }
+  function removePalette(paletteId) {
+    setPalettes((op) => op.filter((palette) => palette.id !== paletteId));
+  }
   return (
     <Routes>
-      <Route path="/" element={<PaletteList palettes={palettes} />} />
+      <Route
+        path="/"
+        element={
+          <PaletteList palettes={palettes} removePalette={removePalette} />
+        }
+      />
       <Route
         path="/palette/new"
         element={<NewPaletteForm addPalette={addPalette} palettes={palettes} />}

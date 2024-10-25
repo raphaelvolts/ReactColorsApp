@@ -5,7 +5,7 @@ import styles from "./styles/PaletteListStyles";
 
 const listPageStyles = createUseStyles(styles);
 
-export default function PaletteList({ palettes }) {
+export default function PaletteList({ palettes, removePalette }) {
   const classes = listPageStyles();
   const navigate = useNavigate();
   function goToPalette(id) {
@@ -16,6 +16,7 @@ export default function PaletteList({ palettes }) {
       <MiniPalette
         key={palette.id}
         palette={palette}
+        removePalette={removePalette}
         navigation={goToPalette}
       />
     );

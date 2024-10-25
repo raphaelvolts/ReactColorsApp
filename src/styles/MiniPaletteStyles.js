@@ -1,3 +1,5 @@
+import zIndex from "@mui/material/styles/zIndex";
+
 export default {
   root: {
     backgroundColor: "white",
@@ -7,11 +9,10 @@ export default {
     overflow: "hidden",
     boxSizing: "border-box",
     height: "200px",
-    /* display: "flex",
-    flexDirection: "column",
-    flex: "auto", */
-    "&:hover": {
-      cursor: "pointer"
+    cursor: "pointer",
+    "&:hover $deleteIcon": {
+      opacity: 1,
+      transform: "scale(1.25)"
     }
   },
   color: {
@@ -46,5 +47,15 @@ export default {
     marginBottom: "-3.5px",
     position: "relative",
     backgroundColor: (color) => color
+  },
+  deleteIcon: {
+    /* width: "30px",
+    height: "30px", */
+    backgroundColor: "rgba(255,255,255, 0.6)",
+    position: "absolute",
+    right: "20px",
+    top: "5px",
+    opacity: 0,
+    zIndex: 10
   }
 };
