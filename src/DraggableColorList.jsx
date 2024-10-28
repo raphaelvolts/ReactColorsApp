@@ -16,8 +16,12 @@ import {
   SortableContext,
   arrayMove
 } from "@dnd-kit/sortable";
+import { createUseStyles } from "react-jss";
 import DraggableColorBox from "./DraggableColorBox";
 import { DraggableItem } from "./DraggableItem";
+import DraggableColorListStyles from "./styles/DraggableColorListStyles";
+
+const style = createUseStyles(DraggableColorListStyles);
 
 export default function DraggableColorList({
   colors,
@@ -34,6 +38,7 @@ export default function DraggableColorList({
       }
     })
   );
+  const classes = style();
   let timer = "";
   const items = colors;
   const handleDragEnd = (event) => {
@@ -101,18 +106,7 @@ export default function DraggableColorList({
       style={{ height: "100%" }}
     >
       <SortableContext items={items} strategy={rectSortingStrategy}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: `repeat(5, 1fr)`,
-            gridTemplateRows: `repeat(4, 1fr)`,
-            gridGap: 0,
-            maxWidth: "100vw",
-            width: "100%",
-            height: "100%",
-            margin: "0 0"
-          }}
-        >
+        <div className={classes.colorGrid}>
           {items.map((color) => (
             <DraggableColorBox
               key={color.name}
@@ -126,7 +120,7 @@ export default function DraggableColorList({
       </SortableContext>
       <DragOverlay
         adjustScale
-        style={{ transformOrigin: "0 0", height: "20%", width: "15%" }}
+        style={{ transformOrigin: "0 0" /* , height: "20%", width: "15%"  */ }}
         dropAnimation={{
           duration: 500,
           easing: "cubic-bezier(0.18, 0.67, 0.6, 1.22)"

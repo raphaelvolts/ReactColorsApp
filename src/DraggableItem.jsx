@@ -13,7 +13,7 @@ export const DraggableItem = forwardRef(function DraggableItem(
 
   return (
     <div className={classes.root} style={{ ...style, backgroundColor: color }}>
-      <div ref={ref} {...props} style={{ width: "100%", height: "100%" }}></div>
+      <div ref={ref} {...props} className={classes.draggableDiv}></div>
       <div className={classes.boxContainer}>
         <span>{name}</span>
         <DeleteIcon

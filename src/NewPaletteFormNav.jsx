@@ -8,7 +8,11 @@ import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { AppBar } from "./AppBar";
+import { createUseStyles } from "react-jss";
 import PaletteMetaForm from "./PaletteMetaForm";
+import NewPaletteFormNavStyles from "./styles/NewPaletteFormNavStyles";
+
+const styles = createUseStyles(NewPaletteFormNavStyles);
 
 export default function NewPaletteFormNav({
   open,
@@ -16,6 +20,7 @@ export default function NewPaletteFormNav({
   palettes,
   handlePalette
 }) {
+  const classes = styles();
   const navigate = useNavigate();
   function handleBack() {
     navigate("/", { relative: "path" });
@@ -28,13 +33,7 @@ export default function NewPaletteFormNav({
         position="fixed"
         open={open}
         color="default"
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          paddingRight: "2.5rem"
-        }}
+        className={classes.appBar}
       >
         <Toolbar>
           <IconButton
@@ -55,16 +54,20 @@ export default function NewPaletteFormNav({
             Create Your Palette
           </Typography>
         </Toolbar>
-        <div>
+        <div className={classes.buttonContainer}>
           <Button
             variant="contained"
             onClick={handleBack}
-            sx={{ marginX: "5px" }}
+            className={classes.button}
             color="error"
           >
             Go Back
           </Button>
-          <PaletteMetaForm palettes={palettes} handlePalette={handlePalette} />
+          <PaletteMetaForm
+            classes={classes.button}
+            palettes={palettes}
+            handlePalette={handlePalette}
+          />
         </div>
       </AppBar>
     </>

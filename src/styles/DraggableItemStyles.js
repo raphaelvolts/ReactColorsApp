@@ -1,3 +1,4 @@
+import sizes from "./sizes";
 export default {
   root: {
     width: "100%",
@@ -17,6 +18,19 @@ export default {
       color: "white",
       transform: "scale(1.5)",
       cursor: "pointer"
+    }
+  },
+  draggableDiv: {
+    width: "100%",
+    height: "100%",
+    [sizes.down("md")]: {
+      display: "inline-block",
+      width: "90%",
+      height: "100%",
+      zIndex: "5"
+    },
+    [sizes.down("sm")]: {
+      width: "70%"
     }
   },
   boxContainer: {

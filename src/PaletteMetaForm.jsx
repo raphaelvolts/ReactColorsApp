@@ -9,7 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 
-export default function PaletteMetaForm({ palettes, handlePalette }) {
+export default function PaletteMetaForm({ palettes, handlePalette, classes }) {
   const [open, setOpen] = useState("");
 
   const handleClickOpen = () => {
@@ -85,8 +85,13 @@ export default function PaletteMetaForm({ palettes, handlePalette }) {
         <DialogTitle>Choose your Palette Emoji</DialogTitle>
         <Picker data={data} onEmojiSelect={(emoji) => handleSubmit(emoji)} />
       </Dialog>
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
-        Save Palette
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes}
+        onClick={handleClickOpen}
+      >
+        Save
       </Button>
       <Dialog
         open={open === "form"}
