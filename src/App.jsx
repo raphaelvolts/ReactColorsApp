@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Routes, Route, useParams, useNavigate } from "react-router-dom";
 import PaletteList from "./PaletteList";
 import Palette from "./Palette";

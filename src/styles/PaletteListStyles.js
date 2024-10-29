@@ -1,7 +1,17 @@
+import bg from "../assets/bg.svg";
 import sizes from "./sizes";
 export default {
+  "@global": {
+    ".fade-exit": {
+      opacity: 1
+    },
+    ".fade-exit-active": {
+      opacity: 0,
+      transition: "opacity 500ms ease-out"
+    }
+  },
   root: {
-    backgroundColor: "navy",
+    /* backgroundColor: "navy", */
     display: "flex",
     minHeight: "100%",
     height: "inherit",
@@ -10,7 +20,10 @@ export default {
     alignItems: "flex-start",
     justifyContent: "center",
     boxSizing: "border-box",
-    overflow: "scroll"
+    overflow: "scroll",
+    /* background by svgbackgrounds.com */
+    backgroundColor: "#394BAD",
+    backgroundImage: `url(${bg})`
   },
   container: {
     display: "flex",
@@ -51,7 +64,7 @@ export default {
     },
     [sizes.down("xs")]: {
       gridTemplateColumns: "repeat(1, 100%)",
-      gap: "1rem"
+      gap: "1.5rem"
     }
   }
 };

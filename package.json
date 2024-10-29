@@ -16,6 +16,7 @@
     "@emoji-mart/react": "^1.1.1",
     "@mui/icons-material": "^6.1.1",
     "@mui/material": "^6.1.1",
+    "@types/react-transition-group": "^4.4.11",
     "@uiw/color-convert": "^2.3.2",
     "@uiw/react-color": "^2.3.2",
     "@uiw/react-color-chrome": "^2.3.2",
@@ -29,6 +30,7 @@
     "react-dom": "^18.2.0",
     "react-jss": "^10.10.0",
     "react-router-dom": "^6.26.2",
+    "react-transition-group": "^4.4.5",
     "styled-jss": "^2.2.3"
   },
   "devDependencies": {
