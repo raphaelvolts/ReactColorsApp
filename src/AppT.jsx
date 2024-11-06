@@ -57,7 +57,14 @@ function App() {
         index: route.path === "/",
         path: route.path === "/" ? undefined : route.path,
         element: route.element
-      }))
+      })),
+      errorElement: (
+        <PaletteList
+          key={location.key}
+          palettes={palettes}
+          removePalette={removePalette}
+        />
+      )
     }
   ]);
 

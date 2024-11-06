@@ -31,7 +31,6 @@ export default function DraggableColorBox({
   };
 
   function handleDelete() {
-    console.log(name);
     handleRemoveColor(name);
   }
   return (

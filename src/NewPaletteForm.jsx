@@ -13,6 +13,7 @@ import NewPaletteFormNav from "./NewPaletteFormNav";
 import ColorPickerForm from "./ColorPickerForm";
 import { createUseStyles } from "react-jss";
 import { DRAWER_WIDTH } from "./constants";
+import seedColors from "./seedColors";
 import styles from "./styles/NewPaletteFormStyles";
 
 const drawerWidth = DRAWER_WIDTH;
@@ -22,7 +23,7 @@ const styling = createUseStyles(styles);
 export default function NewPaletteForm({ addPalette, palettes }) {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
-  const [colors, setColors] = useState(palettes[0].colors);
+  const [colors, setColors] = useState(seedColors[0].colors);
 
   const classes = styling();
 
@@ -61,9 +62,17 @@ export default function NewPaletteForm({ addPalette, palettes }) {
   }
 
   function addRandomColor() {
-    const allColors = palettes.map((palette) => palette.colors).flat();
-    let rand = Math.floor(Math.random() * allColors.length);
-    let randomColor = allColors[rand];
+    const allColors = seedColors.map((palette) => palette.colors).flat();
+    let rand;
+    let randomColor;
+    let isDuplicateColor = true;
+    while (isDuplicateColor) {
+      rand = Math.floor(Math.random() * allColors.length);
+      randomColor = allColors[rand];
+      isDuplicateColor = colors.some(
+        (color) => color.name === randomColor.name
+      );
+    }
     setColors((oc) => [...oc, randomColor]);
   }
 

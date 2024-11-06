@@ -9,7 +9,7 @@ export const DraggableItem = forwardRef(function DraggableItem(
   { id, color, name, handleDelete, style, withOpacity, isDragging, ...props },
   ref
 ) {
-  const classes = styleSheet({ isDragging, withOpacity });
+  const classes = styleSheet({ isDragging, withOpacity, color });
 
   return (
     <div className={classes.root} style={{ ...style, backgroundColor: color }}>
