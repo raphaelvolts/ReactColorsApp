@@ -34,7 +34,7 @@ export default function DraggableColorList({
     useSensor(MouseSensor, {
       // Require the mouse to move by 10 pixels before activating
       activationConstraint: {
-        distance: 10
+        distance: 20
       }
     })
   );
@@ -52,7 +52,7 @@ export default function DraggableColorList({
         items.find((item) => item.name === over.id)
       );
       let newColors = arrayMove(items, oldIndex, newIndex);
-      console.log(newColors, oldIndex, newIndex);
+      /* console.log(newColors, oldIndex, newIndex); */
       clearTimeout(timer);
       handleSort(newColors);
       setActiveId(null);

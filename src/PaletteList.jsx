@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useRef, memo, useCallback } from "react";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -20,6 +20,7 @@ const listPageStyles = createUseStyles(styles);
 
 export default function PaletteList({ palettes, removePalette }) {
   const paletteRefs = useRef([]);
+
   const [dialog, setDialog] = useState({
     dialogOpen: false,
     deleteID: "",
@@ -43,28 +44,27 @@ export default function PaletteList({ palettes, removePalette }) {
   }
 
   const classes = listPageStyles();
-  const navigate = useNavigate();
-  function goToPalette(id) {
-    navigate(`/palette/${id}`);
-  }
-  let links = palettes.map((palette, i) => {
-    return (
-      <CSSTransition
-        key={palette.id}
-        nodeRef={paletteRefs.current[i]}
-        timeout={500}
-        classNames="fade"
-      >
-        <MiniPalette
+
+  const links = useCallback(
+    palettes.map((palette, i) => {
+      return (
+        <CSSTransition
           key={palette.id}
-          palette={palette}
-          ref={paletteRefs.current[i]}
-          handleDialogOpen={handleDialogOpen}
-          navigation={goToPalette}
-        />
-      </CSSTransition>
-    );
-  });
+          nodeRef={paletteRefs.current[i]}
+          timeout={500}
+          classNames="fade"
+        >
+          <MiniPalette
+            key={palette.id}
+            palette={palette}
+            ref={paletteRefs.current[i]}
+            handleDialogOpen={handleDialogOpen}
+          />
+        </CSSTransition>
+      );
+    }),
+    [palettes, removePalette]
+  );
 
   return (
     <div className={classes.root}>

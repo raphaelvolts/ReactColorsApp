@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -11,7 +12,7 @@ import Picker from "@emoji-mart/react";
 
 export default function PaletteMetaForm({ palettes, handlePalette, classes }) {
   const [open, setOpen] = useState("");
-
+  const navigate = useNavigate();
   const handleClickOpen = () => {
     setOpen("form");
   };
@@ -64,6 +65,8 @@ export default function PaletteMetaForm({ palettes, handlePalette, classes }) {
   }
   function handleSubmit(emoji) {
     handlePalette(newPalette.paletteName, emoji.native);
+    handleClose();
+    navigate("/");
   }
 
   const errorMsgs = {

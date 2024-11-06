@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import PaletteFooter from "./PaletteFooter";
 import { createUseStyles } from "react-jss";
 import styles from "./styles/PaletteStyle";
+import { useOutletContext } from "react-router-dom";
 
 const paletteStyles = createUseStyles(styles);
 export default function Palette({
@@ -14,6 +15,7 @@ export default function Palette({
   handleSnackbar
 }) {
   const [level, setLevel] = useState(500);
+
   const classes = paletteStyles();
   const { colors, emoji, id, paletteName } = palette;
   const colorBox = colors[level].map((color, i) => {
